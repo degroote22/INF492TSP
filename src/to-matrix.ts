@@ -1,5 +1,5 @@
-import { IParsed, IParsedExplicit, IParsedEuc2D } from ".";
-import { range } from "../utils";
+import { IParsed, IParsedExplicit, IParsedEuc2D } from "./parser";
+import { range } from "./utils";
 
 export const toMatrixLDR = (parsed: IParsed) => {
   if (parsed.edge_weight_type === "EXPLICIT") {

@@ -2,6 +2,7 @@ import { evaluate } from "../evaluate";
 import { getFile } from "../fs/get-file";
 import { parse } from "../parser";
 import { inOrderOrder, evenOddOrder } from "../utils";
+import { toMatrixLDR } from "../to-matrix";
 
 describe("evaluate", () => {
   const cases = [
@@ -22,12 +23,12 @@ describe("evaluate", () => {
     test(n, () => {
       const file = getFile(n);
       const parsed = parse({ file, type: "TSP" });
-
+      const matrix = toMatrixLDR(parsed);
       expect(
-        evaluate({ parsed, order: inOrderOrder(parsed.dimension) })
+        evaluate({ matrix, order: inOrderOrder(parsed.dimension) })
       ).toBeCloseTo(io);
       expect(
-        evaluate({ parsed, order: evenOddOrder(parsed.dimension) })
+        evaluate({ matrix, order: evenOddOrder(parsed.dimension) })
       ).toBeCloseTo(eo);
     });
   });

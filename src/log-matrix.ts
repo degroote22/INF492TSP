@@ -1,6 +1,6 @@
-import { IParsed } from "./parser";
-import { toMatrixLDR } from "./parser/to-matrix";
+import { toMatrixLDR } from "./to-matrix";
 import { range } from "./utils";
+import { IParsed } from "./parser";
 
 const numberToStringCorrectLength = (length: number) => (numbers: number[]) =>
   numbers

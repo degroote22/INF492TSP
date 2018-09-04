@@ -1,5 +1,3 @@
-import { IParsed } from "./parser";
-import { toMatrixLDR } from "./parser/to-matrix";
 const getDistance = ({
   c1,
   c2,
@@ -45,13 +43,12 @@ const getSummedDistance = (
 
 export const evaluate = ({
   order,
-  parsed
+  matrix
 }: {
-  parsed: IParsed;
+  matrix: number[][];
   order: number[];
 }) => {
-  const ldrMatrix = toMatrixLDR(parsed);
   const pairs = makePairs(order);
 
-  return getSummedDistance(pairs, ldrMatrix);
+  return getSummedDistance(pairs, matrix);
 };
