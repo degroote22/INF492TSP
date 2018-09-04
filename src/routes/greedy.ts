@@ -68,12 +68,6 @@ export const twoHeadRoute = (parsed: IParsed) => {
     if (!nextCityHead1 && !nextCityHead2) {
       // último item da iteração
       route.push(lastCityHead1);
-    } else if (nextCityHead1 && !nextCityHead2) {
-      // adiciona na frente do array
-      route = [nextCityHead1.index, ...route];
-    } else if (nextCityHead2 && !nextCityHead1) {
-      // adiciona no fim do array
-      route.push(nextCityHead2.index);
     } else if (nextCityHead1.distance < nextCityHead2.distance) {
       // adiciona na frente do array
       route = [nextCityHead1.index, ...route];
