@@ -1,7 +1,7 @@
 import { evaluate } from "./evaluate";
 import { getFile } from "./fs/get-file";
 import { parse } from "./parser";
-import { toMatrixLDR } from "./to-matrix";
+import { toMatrixLDR } from "./misc/to-matrix";
 // import { evenOddRoute } from "./routes/even-odd";
 // import { inOrderRoute } from "./routes/in-order";
 import { oneHeadRoute, twoHeadRoute } from "./routes/greedy";

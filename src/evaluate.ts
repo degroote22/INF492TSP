@@ -1,4 +1,4 @@
-import { getDistance } from "./utils";
+import { getDistance } from "./misc/utils";
 
 const makePairs = (order: number[]) => {
   const pairs = order.reduce(

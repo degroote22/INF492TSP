@@ -1,4 +1,4 @@
-import { range } from "../utils";
+import { range } from "../misc/utils";
 
 export const inOrderRoute = (dimension: number) => {
   const arr = range(dimension).map(x => x + 1);

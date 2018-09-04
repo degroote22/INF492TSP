@@ -3,7 +3,7 @@ import { getFile } from "../fs/get-file";
 import { parse } from "../parser";
 import { evenOddRoute } from "../routes/even-odd";
 import { inOrderRoute } from "../routes/in-order";
-import { toMatrixLDR } from "../to-matrix";
+import { toMatrixLDR } from "../misc/to-matrix";
 
 describe("evaluate inOrder and evenOddOrder", () => {
   const cases = [

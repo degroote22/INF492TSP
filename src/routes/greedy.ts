@@ -1,6 +1,6 @@
 import { IParsed } from "../parser";
-import { toMatrixLDR } from "../to-matrix";
-import { range, getDistance } from "../utils";
+import { toMatrixLDR } from "../misc/to-matrix";
+import { range, getDistance } from "../misc/utils";
 
 const getNextCity = ({
   dimension,

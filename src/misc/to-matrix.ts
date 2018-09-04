@@ -1,4 +1,4 @@
-import { IParsed, IParsedExplicit, IParsedEuc2D } from "./parser";
+import { IParsed, IParsedExplicit, IParsedEuc2D } from "../parser";
 import { range } from "./utils";
 
 export const toMatrixLDR = (parsed: IParsed) => {
