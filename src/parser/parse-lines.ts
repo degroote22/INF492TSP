@@ -47,8 +47,7 @@ function shouldIgnoreLine(curr: string): boolean {
 function parseLine(curr: string, prev: { [key: string]: any }) {
   const parts = curr.replace(/ /g, "").split(":");
   const name = parts[0].toLowerCase();
-  const value =
-    name === "dimension" ? parseInt(parts[1], 10) : parts[1].replace(/ /g, "");
+  const value = name === "dimension" ? parseInt(parts[1], 10) : parts[1];
   return { ...prev, [name]: value };
 }
 

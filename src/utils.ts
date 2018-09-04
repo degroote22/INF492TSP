@@ -5,27 +5,19 @@ export const range = (n: number) => {
   }
   return x;
 };
-export const inOrderOrder = (dimension: number) => {
-  const arr = range(dimension).map(x => x + 1);
 
-  return [...arr, arr[0]];
-};
+export const getDistance = ({
+  c1,
+  c2,
+  ldrMatrix
+}: {
+  ldrMatrix: number[][];
+  c1: number;
+  c2: number;
+}) => {
+  // subtrai 1 pq as cidades vem indexadas começando de 1
+  const min = Math.min(c1, c2) - 1;
+  const max = Math.max(c1, c2) - 1;
 
-export const evenOddOrder = (dimension: number) => {
-  const arr = range(dimension).map(x => x + 1);
-  let evens = [] as number[];
-
-  let odds = [] as number[];
-
-  arr.forEach(i => {
-    if (i % 2 === 0) {
-      evens.push(i);
-    } else {
-      odds.push(i);
-    }
-  });
-
-  const sorted = [...odds, ...evens];
-
-  return [...sorted, sorted[0]];
+  return ldrMatrix[max][min];
 };

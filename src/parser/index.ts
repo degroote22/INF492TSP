@@ -1,3 +1,4 @@
+export * from "./types";
 import { parseLines } from "./parse-lines";
 
 export const parse = ({ file, type }: { file: string; type: "TSP" }) => {
@@ -10,4 +11,3 @@ export const parse = ({ file, type }: { file: string; type: "TSP" }) => {
 
   return parsed;
 };
-export * from "./types";

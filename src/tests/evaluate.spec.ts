@@ -1,10 +1,11 @@
 import { evaluate } from "../evaluate";
 import { getFile } from "../fs/get-file";
 import { parse } from "../parser";
-import { inOrderOrder, evenOddOrder } from "../utils";
+import { evenOddRoute } from "../routes/even-odd";
+import { inOrderRoute } from "../routes/in-order";
 import { toMatrixLDR } from "../to-matrix";
 
-describe("evaluate", () => {
+describe("evaluate inOrder and evenOddOrder", () => {
   const cases = [
     { n: "data/gr17.tsp", io: 4722, eo: 5379 },
     { n: "data/gr21.tsp", io: 6620, eo: 7478 },
@@ -25,10 +26,10 @@ describe("evaluate", () => {
       const parsed = parse({ file, type: "TSP" });
       const matrix = toMatrixLDR(parsed);
       expect(
-        evaluate({ matrix, order: inOrderOrder(parsed.dimension) })
+        evaluate({ matrix, order: inOrderRoute(parsed.dimension) })
       ).toBeCloseTo(io);
       expect(
-        evaluate({ matrix, order: evenOddOrder(parsed.dimension) })
+        evaluate({ matrix, order: evenOddRoute(parsed.dimension) })
       ).toBeCloseTo(eo);
     });
   });
