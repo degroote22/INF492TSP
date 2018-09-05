@@ -1,6 +1,7 @@
 import { oneHeadRoute, twoHeadRoute } from "../routes/greedy";
 import { getFile } from "../fs/get-file";
 import { parse } from "../parser";
+import { toMatrixLDR } from "../misc/to-matrix";
 
 describe.only("greety solver", () => {
   const cases = [
@@ -21,8 +22,10 @@ describe.only("greety solver", () => {
     test(n, () => {
       const file = getFile(n);
       const parsed = parse({ file, type: "TSP" });
-      const orderOneHead = oneHeadRoute(parsed);
-      const orderTwoHead = twoHeadRoute(parsed);
+      const { dimension } = parsed;
+      const matrix = toMatrixLDR(parsed);
+      const orderOneHead = oneHeadRoute({ matrix, dimension });
+      const orderTwoHead = twoHeadRoute({ matrix, dimension });
       expect(orderOneHead).toMatchSnapshot();
       expect(orderTwoHead).toMatchSnapshot();
     });

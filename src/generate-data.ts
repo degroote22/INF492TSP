@@ -26,11 +26,18 @@ const main = () => {
     const file = getFile(n);
     const parsed = parse({ file, type: "TSP" });
     const matrix = toMatrixLDR(parsed);
+    const { dimension } = parsed;
 
     // const inOrder = evaluate({ matrix, order: inOrderRoute(parsed.dimension) });
     // const evenOdd = evaluate({ matrix, order: evenOddRoute(parsed.dimension) });
-    const oneHead = evaluate({ matrix, order: oneHeadRoute(parsed) });
-    const twoHead = evaluate({ matrix, order: twoHeadRoute(parsed) });
+    const oneHead = evaluate({
+      matrix,
+      order: oneHeadRoute({ matrix, dimension })
+    });
+    const twoHead = evaluate({
+      matrix,
+      order: twoHeadRoute({ matrix, dimension })
+    });
 
     return {
       n,

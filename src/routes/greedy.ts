@@ -1,5 +1,3 @@
-import { IParsed } from "../parser";
-import { toMatrixLDR } from "../misc/to-matrix";
 import { range, getDistance } from "../misc/utils";
 
 const getNextCity = ({
@@ -24,9 +22,13 @@ const getNextCity = ({
   return arr[0];
 };
 
-export const oneHeadRoute = (parsed: IParsed) => {
-  const { dimension } = parsed;
-  const matrix = toMatrixLDR(parsed);
+export const oneHeadRoute = ({
+  matrix,
+  dimension
+}: {
+  matrix: number[][];
+  dimension: number;
+}) => {
   let route = [1];
 
   for (let index = 0; index < dimension; index++) {
@@ -43,9 +45,13 @@ export const oneHeadRoute = (parsed: IParsed) => {
   return route;
 };
 
-export const twoHeadRoute = (parsed: IParsed) => {
-  const { dimension } = parsed;
-  const matrix = toMatrixLDR(parsed);
+export const twoHeadRoute = ({
+  matrix,
+  dimension
+}: {
+  matrix: number[][];
+  dimension: number;
+}) => {
   let route = [1];
 
   for (let index = 0; index < dimension; index++) {
@@ -67,6 +73,12 @@ export const twoHeadRoute = (parsed: IParsed) => {
 
     if (!nextCityHead1 && !nextCityHead2) {
       // último item da iteração
+      // nunca há o caso de ter um e não ter o outro
+      // porque os dois retornarão vazios só quando o filter
+      // do getNextCity (que ignora a rota atual) chegar no final
+
+      // lastCityHead1 é o primeiro do array
+      // isso acontece na iteração final
       route.push(lastCityHead1);
     } else if (nextCityHead1.distance < nextCityHead2.distance) {
       // adiciona na frente do array
