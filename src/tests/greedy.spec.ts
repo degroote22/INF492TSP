@@ -1,9 +1,42 @@
 import { oneHeadRoute, twoHeadRoute } from "../routes/greedy";
 import { getFile } from "../fs/get-file";
 import { parse } from "../parser";
+import { evaluate } from "../evaluate";
 import { toMatrixLDR } from "../misc/to-matrix";
 
-describe.only("greety solver", () => {
+describe("oneHead greedy solver", () => {
+  // prettier-ignore
+  const matrix = [
+    [0         ],
+    [1 , 0     ],
+    [2 , 1 , 0 ]
+  ];
+
+  const dimension = 3;
+
+  expect(oneHeadRoute({ matrix, dimension })).toMatchObject([1, 2, 3, 1]);
+});
+
+describe("two head greedy solver can be worse than one head", () => {
+  // prettier-ignore
+  const matrix = [
+    [ 0                        ],
+    [ 1 , 0                    ],
+    [ 1 , 9 , 0                ],
+    [ 9 , 9 , 9 , 0            ],
+    [ 9 , 2 , 1 , 9 , 0        ],
+    [ 2 , 9 , 9 , 9 , 9 , 0    ],
+  ];
+
+  const dimension = 6;
+  const twoHead = twoHeadRoute({ matrix, dimension });
+  const oneHead = oneHeadRoute({ matrix, dimension });
+  expect(evaluate({ order: oneHead, matrix })).toBeLessThan(
+    evaluate({ order: twoHead, matrix })
+  );
+});
+
+describe("greety solver", () => {
   const cases = [
     { n: "data/gr17.tsp" },
     { n: "data/gr21.tsp" },

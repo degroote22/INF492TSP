@@ -1,7 +1,7 @@
 import { IParsed, IParsedExplicit, IParsedEuc2D } from "../parser";
 import { range } from "./utils";
 
-export const toMatrixLDR = (parsed: IParsed) => {
+export const toMatrixLDR = (parsed: IParsed): number[][] => {
   if (parsed.edge_weight_type === "EXPLICIT") {
     if (parsed.edge_weight_format == "LOWER_DIAG_ROW") {
       return toMatrixFromLDR(parsed);
