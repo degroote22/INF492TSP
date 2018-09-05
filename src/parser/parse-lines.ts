@@ -54,11 +54,7 @@ const captureLine = (
   return { ...prev, [name]: value };
 };
 
-export const parseLines = (lines: RegExpMatchArray | null) => {
-  if (!lines) {
-    throw Error(`Arquivo com aparente defeito.`);
-  }
-
+export const parseLines = (lines: RegExpMatchArray) => {
   let capturingBlockEdgeWeightSection = false;
   let capturingBlockNodeCoordSection = false;
   const mapped = lines.reduce(
