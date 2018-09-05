@@ -50,6 +50,9 @@ const captureLine = (
 ): Partial<IParsed> => {
   const parts = curr.replace(/ /g, "").split(":");
   const name = parts[0].toLowerCase();
+  if (!parts[1]) {
+    throw Error();
+  }
   const value = name === "dimension" ? parseInt(parts[1], 10) : parts[1];
   return { ...prev, [name]: value };
 };
