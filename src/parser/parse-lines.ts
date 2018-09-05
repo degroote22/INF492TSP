@@ -1,23 +1,23 @@
-import { IParsed } from "./types";
+import { IParsed, IParsedEuc2D, IParsedExplicit } from "./types";
 
-function makeIntList(curr: string): number[] {
+const makeIntList = (curr: string): number[] => {
   return curr
     .split(" ")
     .filter(x => x.length)
     .map(x => parseInt(x, 10));
-}
+};
 
-function makeNumberList(curr: string): number[] {
+const makeNumberList = (curr: string): number[] => {
   return curr
     .split(" ")
     .filter(x => x.replace(/ /g, "").length !== 0)
     .map(x => Number(x));
-}
+};
 
-function captureBlockLineEdgeWeightSection(
-  prev: { [key: string]: any },
+const captureBlockLineEdgeWeightSection = (
+  prev: Partial<IParsedExplicit>,
   curr: string
-): { [key: string]: any } {
+): Partial<IParsedExplicit> => {
   return {
     ...prev,
     edge_weight_section: [
@@ -25,12 +25,12 @@ function captureBlockLineEdgeWeightSection(
       ...makeIntList(curr)
     ]
   };
-}
+};
 
-function captureBlockLineNodeCoordSection(
-  prev: { [key: string]: any },
+const captureBlockLineNodeCoordSection = (
+  prev: Partial<IParsedEuc2D>,
   curr: string
-): { [key: string]: any } {
+): Partial<IParsedEuc2D> => {
   return {
     ...prev,
     node_coord_section: [
@@ -38,18 +38,21 @@ function captureBlockLineNodeCoordSection(
       makeNumberList(curr)
     ]
   };
-}
+};
 
-function shouldIgnoreLine(curr: string): boolean {
+const shouldIgnoreLine = (curr: string): boolean => {
   return curr.replace(/ /g, "").length === 0 || curr.startsWith("EOF");
-}
+};
 
-function parseLine(curr: string, prev: { [key: string]: any }) {
+const captureLine = (
+  curr: string,
+  prev: Partial<IParsed>
+): Partial<IParsed> => {
   const parts = curr.replace(/ /g, "").split(":");
   const name = parts[0].toLowerCase();
   const value = name === "dimension" ? parseInt(parts[1], 10) : parts[1];
   return { ...prev, [name]: value };
-}
+};
 
 export const parseLines = (lines: RegExpMatchArray | null) => {
   if (!lines) {
@@ -65,11 +68,17 @@ export const parseLines = (lines: RegExpMatchArray | null) => {
       }
 
       if (capturingBlockNodeCoordSection) {
-        return captureBlockLineNodeCoordSection(prev, curr);
+        return captureBlockLineNodeCoordSection(
+          prev as Partial<IParsedEuc2D>,
+          curr
+        );
       }
 
       if (capturingBlockEdgeWeightSection) {
-        return captureBlockLineEdgeWeightSection(prev, curr);
+        return captureBlockLineEdgeWeightSection(
+          prev as Partial<IParsedExplicit>,
+          curr
+        );
       }
 
       if (curr === "NODE_COORD_SECTION") {
@@ -82,10 +91,14 @@ export const parseLines = (lines: RegExpMatchArray | null) => {
         return prev;
       } else {
         // parse line
-        return parseLine(curr, prev);
+        try {
+          return captureLine(curr, prev);
+        } catch {
+          throw Error("Erro capturando linha: " + curr);
+        }
       }
     },
-    {} as { [key: string]: any }
+    {} as Partial<IParsed>
   );
 
   return mapped as IParsed;
