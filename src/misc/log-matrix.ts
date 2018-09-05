@@ -1,6 +1,4 @@
-import { toMatrixLDR } from "./to-matrix";
 import { range } from "./utils";
-import { IParsed } from "../parser";
 
 const numberToStringCorrectLength = (length: number) => (numbers: number[]) =>
   numbers
@@ -24,11 +22,9 @@ const numberToStringCorrectLength = (length: number) => (numbers: number[]) =>
     })
     .join("");
 
-const printMatrix = (parsed: IParsed) =>
-  toMatrixLDR(parsed)
-    .map(numberToStringCorrectLength(7))
-    .join("\n");
+const printMatrixLDR = (matrix: number[][]) =>
+  matrix.map(numberToStringCorrectLength(7)).join("\n");
 
-export const logMatrix = (parsed: IParsed) => {
-  console.log(printMatrix(parsed));
+export const logMatrixLDR = (matrix: number[][]) => {
+  console.log(printMatrixLDR(matrix));
 };

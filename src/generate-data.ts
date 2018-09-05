@@ -5,7 +5,7 @@ import { toMatrixLDR } from "./misc/to-matrix";
 // import { evenOddRoute } from "./routes/even-odd";
 // import { inOrderRoute } from "./routes/in-order";
 import { oneHeadRoute, twoHeadRoute } from "./routes/greedy";
-// import { logMatrix } from "./log-matrix";
+import { logMatrixLDR } from "./misc/log-matrix";
 
 const main = () => {
   const cases = [
@@ -24,7 +24,7 @@ const main = () => {
 
   const data = cases.map(({ n }) => {
     const file = getFile(n);
-    const parsed = parse({ file, type: "TSP" });
+    const parsed = parse({ file });
     const matrix = toMatrixLDR(parsed);
     const { dimension } = parsed;
 
@@ -48,8 +48,7 @@ const main = () => {
     };
   });
 
-  // const _parsed = parse({ file: getFile("data/gr17.tsp"), type: "TSP" });
-  // logMatrix(_parsed);
+  logMatrixLDR(toMatrixLDR(parse({ file: getFile("data/gr17.tsp") })));
 
   console.log(data);
 };
